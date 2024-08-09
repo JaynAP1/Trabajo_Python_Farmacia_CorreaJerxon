@@ -183,5 +183,32 @@
                 "precio": 20
             }
         ]
+    },
+    {
+        "fechaVenta": "2024-08-09 08:54:11.697528",
+        "paciente": {
+            "nombre": "5",
+            "direccion": "5"
+        },
+        "empleado": {
+            "nombre": "Ana",
+            "cargo": "Vendedor"
+        },
+        "medicamentosVendidos": [
+            {
+                "nombreMedicamento": {
+                    "nombre": "Paracetamol",
+                    "precio": 20,
+                    "stock": 150,
+                    "fechaExpiracion": "2024-06-15T00:00:00Z",
+                    "proveedor": {
+                        "nombre": "ProveedorA",
+                        "contacto": "contacto@proveedora.com"
+                    }
+                },
+                "cantidadVendida": 2,
+                "precio": 40
+            }
+        ]
     }
 ]
