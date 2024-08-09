@@ -26,7 +26,6 @@ while Bol1==True:
     Opcion1=str(input("Ingrese un numero para ir a la opcion deseada: "))
 
     if Opcion1 == "1":
-
         ComparadorEmpleado=str(input("Escriba el nombre del empleado: "))
         ComparadorEmpleado=0
         for x in Empleados:
@@ -39,11 +38,11 @@ while Bol1==True:
                     print(Contador,").", i["nombre"])
                 print("=====================")            
 
-                Comparador=str(input("Ingrese el nombre del producto que desea: "))
+                Comparador=str(input("Ingrese el nombre del producto que desea vender: "))
                 for y in Medicamentos:
                     if Comparador == y["nombre"]:
                         print("Has elegido el producto: ",y)
-                        Cantidad=int(input("Ingrese la cantidad que desea comprar: "))
+                        Cantidad=int(input("Ingrese la cantidad que desea vender: "))
                         NombrePaciente=str(input("Ingrese el nombre del paciente: "))
                         DireccionPaciente=str(input("Ingrese la direccion del paciente: "))
                         PrecioTotal=Cantidad*y["precio"]
@@ -75,11 +74,49 @@ while Bol1==True:
  
 
     elif Opcion1 == "2":
-        print("Compras")
-        input("")
+        print("===========================")
+        Contador=0
+        for i in Medicamentos:
+            Contador+=1
+            print(Contador,").", i["nombre"])
+            print("===========================")
+        
+        Comparador=str(input("Ingrese el nombre del producto que desea comprar: "))
+
+        for y in Medicamentos:
+            if Comparador == y["nombre"]:
+                print("Has elegido el producto: ",y)
+                Cantidad=int(input("Ingrese la cantidad que desea comprar: "))
+                NombreProveedor=str(input("Nombre del proveedor: "))
+                ContactoProveedor=str(input("Ingrese el correo del proveedor: "))
+                PrecioTotal=Cantidad*y["precio"]
+                Fecha=str(datetime.datetime.now())
+                
+                Compras.append(
+                    {
+                        "fechaCompra": Fecha,
+                        "proveedor": {
+                            "nombre": NombreProveedor,
+                            "contacto": ContactoProveedor
+                        },
+                        "medicamentosComprados": [
+                            {
+                                "nombreMedicamento": y,
+                                "cantidadComprada": Cantidad,
+                                "precioCompra": PrecioTotal
+                            }
+                        ]
+                    }
+                )
+
+                with open("json/Compras.json", "w") as GCompra:
+                        json.dump(Compras,GCompra)
+                    
+        input("Presione Enter para continuar")
     
     elif Opcion1 == "3":
         Bol2=True
+        os.system("cls")
         while Bol2 == True:
             print("===========================\n1).Registro ventas.\n2).Registro compras. \n3).Salir.\n===========================")
             Opcion2=str(input("Ingrese el numero con la opcion deseada: "))
@@ -88,7 +125,20 @@ while Bol1==True:
                 for i in Ventas:
                     print("Fecha: ",i["fechaVenta"],"Nombre del paciente: ",i["paciente"]["nombre"],"Medicamento vendido: ",i["medicamentosVendidos"]["nombreMedicamento"])
                     print("===========================")
-    
+
+                input("Presione Enter para continuar")
+
+            elif Opcion2 =="2":
+                print("===========================")
+                for i in Compras:
+                    print("Fecha: ",i["fechaCompra"], "Proveedor: ",i["proveedor"]["nombre"], i["medicamentosComprados"][0]["nombreMedicamento"])
+                    print("===========================")
+                
+                input("Presione Enter para continuar")
+
+            elif Opcion2 =="3":
+                Bol2=False
+
     elif Opcion1 == "4":
         print("Salir")
         input("")
