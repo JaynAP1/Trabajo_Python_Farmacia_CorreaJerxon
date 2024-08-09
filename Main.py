@@ -26,59 +26,68 @@ while Bol1==True:
     Opcion1=str(input("Ingrese un numero para ir a la opcion deseada: "))
 
     if Opcion1 == "1":
-        Bol2=True
-        print("=====================")
-        Contador=0
-        for i in Medicamentos:
-            Contador+=1
-            print(Contador,").", i["nombre"])
-        print("=====================")            
 
-        Comparador=str(input("Ingrese el nombre del producto que desea: "))
-        for y in Medicamentos:
-            if Comparador == y["nombre"]:
-                print("Has elegido el producto: ",y)
-                Cantidad=int(input("Ingrese la cantidad que desea comprar: "))
-                NombrePaciente=str(input("Ingrese el nombre del paciente: "))
-                DireccionPaciente=str(input("Ingrese la direccion del paciente: "))
-                PrecioTotal=Cantidad*y["precio"]
-                Fecha=str(datetime.datetime.now())
+        ComparadorEmpleado=str(input("Escriba el nombre del empleado: "))
+        ComparadorEmpleado=0
+        for x in Empleados:
+            ContadorEmpleado=+1
+            if ComparadorEmpleado == x["nombre"]:
+                print("=====================")
+                Contador=0
+                for i in Medicamentos:
+                    Contador+=1
+                    print(Contador,").", i["nombre"])
+                print("=====================")            
 
-                Ventas.append(
-                {
-                "fechaVenta": Fecha,
-                "paciente": {
-                    "nombre": NombrePaciente,
-                    "direccion": DireccionPaciente
-                },
-                "empleado": {
-                    "nombre": "Ana",
-                    "cargo": "Vendedor"
-                },
-                "medicamentosVendidos": [
-                    {
-                        "nombreMedicamento": y,
-                        "cantidadVendida": Cantidad,
-                        "precio": PrecioTotal
-                    }
-                    ]
-                }
-                )
+                Comparador=str(input("Ingrese el nombre del producto que desea: "))
+                for y in Medicamentos:
+                    if Comparador == y["nombre"]:
+                        print("Has elegido el producto: ",y)
+                        Cantidad=int(input("Ingrese la cantidad que desea comprar: "))
+                        NombrePaciente=str(input("Ingrese el nombre del paciente: "))
+                        DireccionPaciente=str(input("Ingrese la direccion del paciente: "))
+                        PrecioTotal=Cantidad*y["precio"]
+                        Fecha=str(datetime.datetime.now())
 
-                with open("json/Ventas.json", "w") as Gventa:
-                    json.dump(Ventas,Gventa)
+                        Ventas.append(
+                        {
+                        "fechaVenta": Fecha,
+                        "paciente": {
+                            "nombre": NombrePaciente,
+                            "direccion": DireccionPaciente
+                        },
+                        "empleado": {
+                            "nombre": ComparadorEmpleado,
+                            "cargo": x["cargo"]
+                        },
+                        "medicamentosVendidos": [
+                            {
+                                "nombreMedicamento": y,
+                                "cantidadVendida": Cantidad,
+                                "precio": PrecioTotal
+                            }
+                            ]
+                        }
+                        )
 
-            else:
-                break
-
+                        with open("json/Ventas.json", "w") as Gventa:
+                            json.dump(Ventas,Gventa)
+ 
 
     elif Opcion1 == "2":
         print("Compras")
         input("")
     
     elif Opcion1 == "3":
-        print("Registros")
-        input("")
+        Bol2=True
+        while Bol2 == True:
+            print("===========================\n1).Registro ventas.\n2).Registro compras. \n3).Salir.\n===========================")
+            Opcion2=str(input("Ingrese el numero con la opcion deseada: "))
+            if Opcion2 == "1":
+                print("===========================")
+                for i in Ventas:
+                    print("Fecha: ",i["fechaVenta"],"Nombre del paciente: ",i["paciente"]["nombre"],"Medicamento vendido: ",i["medicamentosVendidos"]["nombreMedicamento"])
+                    print("===========================")
     
     elif Opcion1 == "4":
         print("Salir")
